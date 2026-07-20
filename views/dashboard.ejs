@@ -45,11 +45,13 @@
                 <span>Personeller</span>
             </a>
 
-            <a href="#" class="menu-link">
+            <a href="/departments" class="menu-link">
+
                 <i class="bi bi-diagram-3"></i>
                 <span>Departmanlar</span>
             </a>
-
+        
+            
             <a href="#" class="menu-link">
                 <i class="bi bi-mortarboard"></i>
                 <span>Eğitimler</span>
@@ -125,7 +127,18 @@
 
                 <div class="date-box">
                     <i class="bi bi-calendar3"></i>
-                    <span>17 Temmuz 2026</span>
+                    <span id="currentDate"></span>
+
+               <script>
+               const date = new Date();
+
+             document.getElementById("currentDate").textContent =
+                 date.toLocaleDateString("tr-TR", {
+               day: "2-digit",
+              month: "long",
+              year: "numeric"
+         });
+         </script>
                 </div>
             </div>
 

@@ -3,52 +3,317 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Departmanlar - HR Nova</title>
+
+    <title>Departman Yönetimi | HR Nova</title>
 
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
         rel="stylesheet"
     >
+
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <style>
+        body {
+            background-color: #f4f6f9;
+        }
+
+        .page-header {
+            background: white;
+            border-radius: 18px;
+            padding: 24px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .content-card {
+            border: none;
+            border-radius: 18px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .department-icon {
+            width: 42px;
+            height: 42px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            background-color: #eef2ff;
+            color: #4f46e5;
+            font-size: 20px;
+        }
+
+        .table th {
+            white-space: nowrap;
+        }
+    </style>
 </head>
-<body class="bg-light">
 
-<div class="container py-5">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1>Departmanlar</h1>
+<body>
 
-        <a href="/" class="btn btn-secondary">
+<div class="container-fluid px-4 py-4">
+
+    <div class="page-header d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+
+        <div>
+            <p class="text-primary fw-semibold mb-1">
+                HR Nova
+            </p>
+
+            <h2 class="fw-bold mb-1">
+                Departman Yönetimi
+            </h2>
+
+            <p class="text-muted mb-0">
+                Şirket departmanlarını ekleyin, düzenleyin ve yönetin.
+            </p>
+        </div>
+
+        <a href="/" class="btn btn-outline-secondary">
+            <i class="bi bi-grid me-1"></i>
             Dashboard
         </a>
+
     </div>
 
-    <div class="card shadow-sm">
-        <div class="card-body">
-            <table class="table table-striped table-hover">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Departman Adı</th>
-                        <th>Açıklama</th>
-                        <th>Oluşturulma Tarihi</th>
-                    </tr>
-                </thead>
+    <% if (success) { %>
+        <div class="alert alert-success alert-dismissible fade show">
+            <i class="bi bi-check-circle me-1"></i>
+            <%= success %>
 
-                <tbody>
-                    <% departments.forEach(department => { %>
-                        <tr>
-                            <td><%= department.id %></td>
-                            <td><%= department.name %></td>
-                            <td><%= department.description || "-" %></td>
-                            <td>
-                                <%= new Date(department.created_at).toLocaleDateString("tr-TR") %>
-                            </td>
-                        </tr>
-                    <% }) %>
-                </tbody>
-            </table>
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert">
+            </button>
         </div>
+    <% } %>
+
+    <% if (error) { %>
+        <div class="alert alert-danger alert-dismissible fade show">
+            <i class="bi bi-exclamation-circle me-1"></i>
+            <%= error %>
+
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert">
+            </button>
+        </div>
+    <% } %>
+
+    <div class="row g-4">
+
+        <div class="col-lg-4">
+
+            <div class="card content-card">
+
+                <div class="card-body p-4">
+
+                    <div class="d-flex align-items-center gap-3 mb-4">
+
+                        <div class="department-icon">
+                            <i class="bi bi-building-add"></i>
+                        </div>
+
+                        <div>
+                            <h5 class="fw-bold mb-0">
+                                Yeni Departman
+                            </h5>
+
+                            <small class="text-muted">
+                                Sisteme yeni bir departman ekleyin.
+                            </small>
+                        </div>
+
+                    </div>
+
+                    <form action="/departments" method="POST">
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">
+                                Departman Adı
+                            </label>
+
+                            <input
+                                type="text"
+                                name="name"
+                                class="form-control"
+                                maxlength="100"
+                                placeholder="Örneğin: Satış"
+                                required
+                            >
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">
+                                Açıklama
+                            </label>
+
+                            <textarea
+                                name="description"
+                                class="form-control"
+                                rows="4"
+                                placeholder="Departmanın görevini açıklayın..."
+                            ></textarea>
+                        </div>
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary w-100"
+                        >
+                            <i class="bi bi-plus-circle me-1"></i>
+                            Departman Ekle
+                        </button>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-lg-8">
+
+            <div class="card content-card">
+
+                <div class="card-body p-4">
+
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+
+                        <div>
+                            <h5 class="fw-bold mb-1">
+                                Departman Listesi
+                            </h5>
+
+                            <span class="text-muted">
+                                Toplam <%= departments.length %> departman
+                            </span>
+                        </div>
+
+                        <span class="badge text-bg-primary rounded-pill px-3 py-2">
+                            <%= departments.length %>
+                        </span>
+
+                    </div>
+
+                    <div class="table-responsive">
+
+                        <table class="table align-middle table-hover">
+
+                            <thead class="table-light">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Departman</th>
+                                    <th>Açıklama</th>
+                                    <th>Tarih</th>
+                                    <th class="text-end">İşlemler</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                            <% if (departments.length === 0) { %>
+
+                                <tr>
+                                    <td colspan="5" class="text-center py-5">
+
+                                        <i class="bi bi-inbox fs-1 text-muted"></i>
+
+                                        <p class="text-muted mt-2 mb-0">
+                                            Henüz departman eklenmemiş.
+                                        </p>
+
+                                    </td>
+                                </tr>
+
+                            <% } %>
+
+                            <% departments.forEach(department => { %>
+
+                                <tr>
+
+                                    <td>
+                                        <span class="text-muted">
+                                            #<%= department.id %>
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+
+                                            <div class="department-icon">
+                                                <i class="bi bi-building"></i>
+                                            </div>
+
+                                            <strong>
+                                                <%= department.name %>
+                                            </strong>
+
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <span class="text-muted">
+                                            <%= department.description || "Açıklama yok" %>
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <%= new Date(department.created_at)
+                                            .toLocaleDateString("tr-TR") %>
+                                    </td>
+
+                                    <td class="text-end">
+
+                                        <a
+                                            href="/departments/<%= department.id %>/edit"
+                                            class="btn btn-sm btn-outline-primary"
+                                        >
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+
+                                        <form
+                                            action="/departments/<%= department.id %>/delete"
+                                            method="POST"
+                                            class="d-inline"
+                                            onsubmit="return confirm('Bu departmanı silmek istediğine emin misin?')"
+                                        >
+                                            <button
+                                                type="submit"
+                                                class="btn btn-sm btn-outline-danger"
+                                            >
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </form>
+
+                                    </td>
+
+                                </tr>
+
+                            <% }) %>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
     </div>
+
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
