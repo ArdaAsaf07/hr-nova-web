@@ -1,0 +1,993 @@
+/* =========================================================
+   BUTONLAR
+========================================================= */
+
+.btn-nova {
+    min-height: 42px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    padding: 10px 17px;
+
+    border: 1px solid transparent;
+    border-radius: 10px;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        transform var(--transition),
+        box-shadow var(--transition),
+        background-color var(--transition),
+        border-color var(--transition),
+        color var(--transition);
+}
+
+.btn-nova:hover {
+    transform: translateY(-1px);
+}
+
+.btn-primary-nova {
+    background-color: var(--primary);
+    color: white;
+
+    box-shadow:
+        0 7px 18px rgba(37, 99, 235, 0.22);
+}
+
+.btn-primary-nova:hover {
+    background-color: var(--primary-dark);
+    color: white;
+}
+
+.btn-secondary-nova {
+    border-color: var(--border-color);
+    background-color: white;
+    color: var(--text-normal);
+}
+
+.btn-secondary-nova:hover {
+    border-color: #bfdbfe;
+    background-color: #eff6ff;
+    color: var(--primary);
+}
+
+.btn-success-nova {
+    background-color: var(--success);
+    color: white;
+}
+
+.btn-success-nova:hover {
+    background-color: #047857;
+    color: white;
+}
+
+.btn-danger-nova {
+    background-color: var(--danger);
+    color: white;
+}
+
+.btn-danger-nova:hover {
+    background-color: #b91c1c;
+    color: white;
+}
+
+.btn-warning-nova {
+    background-color: var(--warning);
+    color: white;
+}
+
+.btn-warning-nova:hover {
+    background-color: #b45309;
+    color: white;
+}
+
+.btn-sm-nova {
+    min-height: 36px;
+    padding: 7px 12px;
+    font-size: 12px;
+}
+
+.btn-icon-nova {
+    width: 38px;
+    height: 38px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    border: 1px solid var(--border-color);
+    border-radius: 9px;
+
+    background-color: white;
+    color: var(--text-normal);
+
+    cursor: pointer;
+
+    transition:
+        background-color var(--transition),
+        color var(--transition),
+        border-color var(--transition);
+}
+
+.btn-icon-nova:hover {
+    border-color: #bfdbfe;
+    background-color: #eff6ff;
+    color: var(--primary);
+}
+
+.btn-icon-edit {
+    border-color: #bfdbfe;
+    background-color: #eff6ff;
+    color: var(--primary);
+}
+
+.btn-icon-edit:hover {
+    border-color: var(--primary);
+    background-color: var(--primary);
+    color: white;
+}
+
+.btn-icon-delete {
+    border-color: #fecaca;
+    background-color: #fef2f2;
+    color: var(--danger);
+}
+
+.btn-icon-delete:hover {
+    border-color: var(--danger);
+    background-color: var(--danger);
+    color: white;
+}
+
+/* =========================================================
+   KARTLAR
+========================================================= */
+
+.nova-card {
+    overflow: hidden;
+
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+
+    background-color: var(--card-bg);
+
+    box-shadow: var(--shadow-sm);
+}
+
+.nova-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+
+    padding: 19px 21px;
+
+    border-bottom: 1px solid var(--border-color);
+}
+
+.nova-card-title {
+    margin: 0;
+
+    color: var(--text-dark);
+
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.nova-card-subtitle {
+    margin-top: 5px;
+
+    color: var(--text-muted);
+
+    font-size: 12px;
+}
+
+.nova-card-body {
+    padding: 21px;
+}
+
+.nova-card-footer {
+    padding: 14px 21px;
+
+    border-top: 1px solid var(--border-color);
+
+    background-color: #fcfcfd;
+}
+
+/* =========================================================
+   İSTATİSTİK KARTLARI
+========================================================= */
+
+.stat-card {
+    height: 100%;
+
+    padding: 20px;
+
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+
+    background-color: white;
+
+    box-shadow: var(--shadow-sm);
+
+    transition:
+        transform var(--transition),
+        box-shadow var(--transition);
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+.stat-card-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.stat-card-label {
+    margin-bottom: 8px;
+
+    color: var(--text-muted);
+
+    font-size: 13px;
+    font-weight: 650;
+}
+
+.stat-card-value {
+    margin: 0;
+
+    color: var(--text-dark);
+
+    font-size: 29px;
+    font-weight: 850;
+    letter-spacing: -0.7px;
+}
+
+.stat-card-description {
+    margin-top: 8px;
+
+    color: var(--text-muted);
+
+    font-size: 11px;
+}
+
+.stat-icon {
+    width: 54px;
+    height: 54px;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 15px;
+
+    font-size: 23px;
+}
+
+.stat-icon.blue {
+    background-color: var(--primary-light);
+    color: var(--primary);
+}
+
+.stat-icon.green {
+    background-color: var(--success-light);
+    color: var(--success);
+}
+
+.stat-icon.orange {
+    background-color: var(--warning-light);
+    color: var(--warning);
+}
+
+.stat-icon.red {
+    background-color: var(--danger-light);
+    color: var(--danger);
+}
+
+.stat-icon.purple {
+    background-color: var(--purple-light);
+    color: var(--purple);
+}
+
+/* =========================================================
+   ARAMA VE FİLTRELER
+========================================================= */
+
+.filter-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.search-box {
+    position: relative;
+
+    width: 330px;
+    max-width: 100%;
+}
+
+.search-box i {
+    position: absolute;
+    top: 50%;
+    left: 14px;
+
+    color: #9ca3af;
+
+    transform: translateY(-50%);
+}
+
+.search-input {
+    width: 100%;
+    height: 43px;
+
+    padding: 9px 14px 9px 42px;
+
+    border: 1px solid var(--border-dark);
+    border-radius: 10px;
+
+    background-color: white;
+    color: var(--text-dark);
+
+    font-size: 13px;
+
+    outline: none;
+
+    transition:
+        border-color var(--transition),
+        box-shadow var(--transition);
+}
+
+.search-input::placeholder {
+    color: #9ca3af;
+}
+
+.search-input:focus {
+    border-color: #60a5fa;
+
+    box-shadow:
+        0 0 0 3px rgba(96, 165, 250, 0.16);
+}
+
+.filter-select {
+    height: 43px;
+
+    padding: 8px 38px 8px 13px;
+
+    border: 1px solid var(--border-dark);
+    border-radius: 10px;
+
+    background-color: white;
+    color: var(--text-normal);
+
+    font-size: 13px;
+
+    outline: none;
+}
+
+/* =========================================================
+   TABLOLAR
+========================================================= */
+
+.nova-table-wrapper {
+    overflow-x: auto;
+}
+
+.nova-table {
+    width: 100%;
+    margin: 0;
+
+    border-collapse: collapse;
+
+    white-space: nowrap;
+}
+
+.nova-table thead th {
+    padding: 13px 16px;
+
+    border-bottom: 1px solid var(--border-color);
+
+    background-color: #f9fafb;
+    color: #4b5563;
+
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.4px;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+.nova-table tbody td {
+    padding: 14px 16px;
+
+    border-bottom: 1px solid #f0f1f3;
+
+    color: var(--text-normal);
+
+    font-size: 13px;
+    vertical-align: middle;
+}
+
+.nova-table tbody tr {
+    transition: background-color var(--transition);
+}
+
+.nova-table tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+.nova-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.table-actions {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.table-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    padding: 14px 20px;
+
+    border-top: 1px solid var(--border-color);
+
+    color: var(--text-muted);
+
+    font-size: 12px;
+}
+
+/* =========================================================
+   PERSONEL PROFİL ALANI
+========================================================= */
+
+.person-cell {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+}
+
+.person-avatar {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #dbeafe,
+            #bfdbfe
+        );
+
+    color: var(--primary-dark);
+
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.person-name {
+    color: var(--text-dark);
+
+    font-size: 13px;
+    font-weight: 750;
+}
+
+.person-subtitle {
+    margin-top: 3px;
+
+    color: var(--text-muted);
+
+    font-size: 11px;
+}
+
+/* =========================================================
+   ROZETLER
+========================================================= */
+
+.nova-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+
+    padding: 6px 10px;
+
+    border-radius: 20px;
+
+    font-size: 11px;
+    font-weight: 750;
+}
+
+.badge-blue {
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+}
+
+.badge-green {
+    background-color: var(--success-light);
+    color: var(--success);
+}
+
+.badge-orange {
+    background-color: var(--warning-light);
+    color: var(--warning);
+}
+
+.badge-red {
+    background-color: var(--danger-light);
+    color: var(--danger);
+}
+
+.badge-purple {
+    background-color: var(--purple-light);
+    color: var(--purple);
+}
+
+.badge-gray {
+    background-color: #f3f4f6;
+    color: #4b5563;
+}
+
+
+/* =========================================================
+   BOŞ DURUM
+========================================================= */
+
+.empty-state {
+    padding: 55px 20px;
+
+    text-align: center;
+}
+
+.empty-state-icon {
+    width: 72px;
+    height: 72px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto 16px;
+
+    border-radius: 50%;
+
+    background-color: var(--primary-light);
+    color: var(--primary);
+
+    font-size: 30px;
+}
+
+.empty-state-title {
+    margin: 0 0 7px;
+
+    color: var(--text-dark);
+
+    font-size: 17px;
+    font-weight: 800;
+}
+
+.empty-state-text {
+    max-width: 450px;
+
+    margin: 0 auto 17px;
+
+    color: var(--text-muted);
+
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+/* =========================================================
+   BİLDİRİM KARTLARI
+========================================================= */
+
+.notification-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 13px;
+
+    padding: 15px 0;
+
+    border-bottom: 1px solid var(--border-color);
+}
+
+.notification-item:last-child {
+    border-bottom: 0;
+}
+
+.notification-icon {
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    font-size: 18px;
+}
+
+.notification-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.notification-title {
+    margin-bottom: 4px;
+
+    color: var(--text-dark);
+
+    font-size: 13px;
+    font-weight: 750;
+}
+
+.notification-description {
+    color: var(--text-muted);
+
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.notification-time {
+    margin-top: 6px;
+
+    color: #9ca3af;
+
+    font-size: 10px;
+}
+
+/* =========================================================
+   RAPOR KARTLARI
+========================================================= */
+
+.report-card {
+    height: 100%;
+
+    padding: 20px;
+
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+
+    background-color: white;
+
+    box-shadow: var(--shadow-sm);
+
+    transition:
+        transform var(--transition),
+        box-shadow var(--transition);
+}
+
+.report-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+.report-card-icon {
+    width: 50px;
+    height: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 17px;
+
+    border-radius: 14px;
+
+    background-color: var(--primary-light);
+    color: var(--primary);
+
+    font-size: 22px;
+}
+
+.report-card-title {
+    margin: 0 0 7px;
+
+    color: var(--text-dark);
+
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.report-card-text {
+    min-height: 40px;
+
+    margin: 0 0 15px;
+
+    color: var(--text-muted);
+
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+/* =========================================================
+   AYARLAR MENÜSÜ
+========================================================= */
+
+.settings-nav {
+    overflow: hidden;
+
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+
+    background-color: white;
+
+    box-shadow: var(--shadow-sm);
+}
+
+.settings-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 14px 16px;
+
+    border-bottom: 1px solid var(--border-color);
+
+    color: var(--text-normal);
+
+    font-size: 13px;
+    font-weight: 650;
+
+    transition:
+        background-color var(--transition),
+        color var(--transition);
+}
+
+.settings-nav-link:last-child {
+    border-bottom: 0;
+}
+
+.settings-nav-link:hover {
+    background-color: #f8fafc;
+    color: var(--primary);
+}
+
+.settings-nav-link.active {
+    background-color: #eff6ff;
+    color: var(--primary);
+
+    font-weight: 800;
+}
+
+/* =========================================================
+   MAIL MERKEZİ
+========================================================= */
+
+.mail-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 330px;
+    gap: 22px;
+}
+
+.mail-template-card {
+    padding: 15px;
+
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+
+    background-color: white;
+
+    cursor: pointer;
+
+    transition:
+        border-color var(--transition),
+        background-color var(--transition),
+        transform var(--transition);
+}
+
+.mail-template-card:hover {
+    border-color: #93c5fd;
+    background-color: #f8fbff;
+    transform: translateY(-2px);
+}
+
+.mail-template-title {
+    margin-bottom: 5px;
+
+    color: var(--text-dark);
+
+    font-size: 13px;
+    font-weight: 750;
+}
+
+.mail-template-description {
+    color: var(--text-muted);
+
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+/* =========================================================
+   GRAFİK ALANI
+========================================================= */
+
+.chart-placeholder {
+    min-height: 300px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #f8fafc,
+            #ffffff
+        );
+
+    color: var(--text-muted);
+
+    text-align: center;
+}
+
+/* =========================================================
+   UYARI MESAJLARI
+========================================================= */
+
+.alert-nova {
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+
+    margin-bottom: 20px;
+    padding: 14px 16px;
+
+    border: 1px solid transparent;
+    border-radius: 11px;
+
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.alert-nova i {
+    margin-top: 1px;
+    font-size: 18px;
+}
+
+.alert-success-nova {
+    border-color: #a7f3d0;
+    background-color: #ecfdf5;
+    color: #047857;
+}
+
+.alert-danger-nova {
+    border-color: #fecaca;
+    background-color: #fef2f2;
+    color: #b91c1c;
+}
+
+.alert-warning-nova {
+    border-color: #fde68a;
+    background-color: #fffbeb;
+    color: #b45309;
+}
+
+.alert-info-nova {
+    border-color: #bfdbfe;
+    background-color: #eff6ff;
+    color: #1d4ed8;
+}
+
+/* =========================================================
+   PAGINATION
+========================================================= */
+
+.nova-pagination {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+}
+
+.nova-page-link {
+    min-width: 35px;
+    height: 35px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0 10px;
+
+    border: 1px solid var(--border-color);
+    border-radius: 9px;
+
+    background-color: white;
+    color: var(--text-normal);
+
+    font-size: 12px;
+    font-weight: 650;
+
+    transition:
+        background-color var(--transition),
+        border-color var(--transition),
+        color var(--transition);
+}
+
+.nova-page-link:hover {
+    border-color: #bfdbfe;
+    background-color: #eff6ff;
+    color: var(--primary);
+}
+
+.nova-page-link.active {
+    border-color: var(--primary);
+    background-color: var(--primary);
+    color: white;
+}
+
+/* =========================================================
+   YARDIMCI SINIFLAR
+========================================================= */
+
+.text-nova-muted {
+    color: var(--text-muted);
+}
+
+.text-nova-primary {
+    color: var(--primary);
+}
+
+.text-nova-success {
+    color: var(--success);
+}
+
+.text-nova-warning {
+    color: var(--warning);
+}
+
+.text-nova-danger {
+    color: var(--danger);
+}
+
+.bg-nova-light {
+    background-color: #f8fafc;
+}
+
+.fw-700 {
+    font-weight: 700;
+}
+
+.fw-800 {
+    font-weight: 800;
+}
+
+.rounded-nova {
+    border-radius: var(--radius-md);
+}
+
+.shadow-nova {
+    box-shadow: var(--shadow-sm);
+}
+

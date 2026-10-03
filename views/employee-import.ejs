@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Excel'den Personel Aktar | HR Nova</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="/css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="/css/employee-import.css"
+    >
+</head>
+
+<body>
+
+    <div class="hr-nova-layout">
+
+        <%- include("partials/sidebar", {
+            activePage: "employees"
+        }) %>
+
+        <main class="main-content">
+
+            <%- include("partials/topbar", {
+                pageTitle: "Excel'den Personel Aktar"
+            }) %>
+
+            <div class="content-wrapper">
+
+                <div class="page-header import-page-header">
+
+                    <div>
+
+                        <a
+                            href="/employees"
+                            class="back-link"
+                        >
+                            <i class="bi bi-arrow-left"></i>
+                            Personel listesine dön
+                        </a>
+
+                        <h2 class="page-title">
+                            Excel'den Personel Aktar
+                        </h2>
+
+                        <p class="page-description">
+                            Excel dosyanızı yükleyerek personelleri
+                            toplu şekilde sisteme aktarabilirsiniz.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <% if (typeof error !== "undefined" && error) { %>
+
+                    <div
+                        class="alert alert-danger d-flex align-items-center"
+                        role="alert"
+                    >
+                        <i class="bi bi-exclamation-circle-fill me-2"></i>
+
+                        <div>
+                            <%= error %>
+                        </div>
+                    </div>
+
+                <% } %>
+
+                <div class="row g-4">
+
+                    <div class="col-xl-8">
+
+                        <div class="import-card">
+
+                            <div class="import-card-header">
+
+                                <div class="import-card-icon">
+                                    <i class="bi bi-file-earmark-excel-fill"></i>
+                                </div>
+
+                                <div>
+
+                                    <h3 class="import-card-title">
+                                        Excel Dosyası Yükle
+                                    </h3>
+
+                                    <p class="import-card-description">
+                                        .xlsx veya .xls uzantılı dosyanızı seçin.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                            <div class="import-card-body">
+
+                                <form
+                                    id="employeeImportForm"
+                                    action="/employees/import/preview"
+                                    method="POST"
+                                    enctype="multipart/form-data"
+                                >
+
+                                    <!-- DOSYA YÜKLEME ALANI -->
+                                    <label
+                                        for="employeeExcelFile"
+                                        class="upload-area"
+                                        id="uploadArea"
+                                        tabindex="0"
+                                    >
+
+                                        <input
+                                            type="file"
+                                            id="employeeExcelFile"
+                                            name="excel_file"
+                                            class="upload-input"
+                                            accept=".xlsx,.xls"
+                                        >
+
+                                        <div class="upload-icon">
+                                            <i class="bi bi-cloud-arrow-up-fill"></i>
+                                        </div>
+
+                                        <h4 class="upload-title">
+                                            Excel dosyasını seçmek için tıklayın
+                                        </h4>
+
+                                        <p class="upload-description">
+                                            Dosyanızı bu alana sürükleyip
+                                            bırakabilirsiniz.
+                                        </p>
+
+                                        <span class="upload-format">
+                                            Maksimum dosya boyutu: 10 MB
+                                        </span>
+
+                                    </label>
+
+                                    <!-- SEÇİLEN DOSYA BİLGİSİ -->
+                                    <div
+                                        class="selected-file-card"
+                                        id="selectedFileCard"
+                                        style="display: none;"
+                                    >
+
+                                        <div class="selected-file-left">
+
+                                            <div class="selected-file-icon">
+                                                <i class="bi bi-file-earmark-excel-fill"></i>
+                                            </div>
+
+                                            <div class="selected-file-content">
+
+                                                <div
+                                                    class="selected-file-name"
+                                                    id="selectedFileName"
+                                                >
+                                                    Dosya seçilmedi
+                                                </div>
+
+                                                <div
+                                                    class="selected-file-size"
+                                                    id="selectedFileSize"
+                                                >
+                                                    -
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                        <button
+                                            type="button"
+                                            class="remove-file-button"
+                                            id="removeFileButton"
+                                            title="Dosyayı kaldır"
+                                        >
+                                            <i class="bi bi-x-lg"></i>
+                                        </button>
+
+                                    </div>
+
+                                    <!-- HATA ALANI -->
+                                    <div
+                                        class="import-error"
+                                        id="importError"
+                                        style="display: none;"
+                                    ></div>
+
+                                    <!-- BUTONLAR -->
+                                    <div class="import-actions">
+
+                                        <a
+                                            href="/employees"
+                                            class="secondary-action-button"
+                                        >
+                                            Vazgeç
+                                        </a>
+
+                                        <button
+                                            type="submit"
+                                            class="primary-action-button"
+                                            id="previewButton"
+                                            disabled
+                                        >
+                                            <i class="bi bi-eye-fill"></i>
+                                            Önizlemeye Geç
+                                        </button>
+
+                                    </div>
+
+                                </form>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-xl-4">
+
+                        <div class="information-card">
+
+                            <div class="information-card-header">
+
+                                <div class="information-icon blue">
+                                    <i class="bi bi-table"></i>
+                                </div>
+
+                                <div>
+
+                                    <h3 class="information-title">
+                                        Beklenen Excel Alanları
+                                    </h3>
+
+                                    <p class="information-description">
+                                        Sütun isimleri farklıysa daha sonra
+                                        eşleştirme yapılacaktır.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                            <div class="column-list">
+
+                                <div class="column-item required">
+                                    <i class="bi bi-check-circle-fill"></i>
+
+                                    <div>
+                                        <strong>Ad</strong>
+                                        <span>Zorunlu alan</span>
+                                    </div>
+                                </div>
+
+                                <div class="column-item required">
+                                    <i class="bi bi-check-circle-fill"></i>
+
+                                    <div>
+                                        <strong>Soyad</strong>
+                                        <span>Zorunlu alan</span>
+                                    </div>
+                                </div>
+
+                                <div class="column-item">
+                                    <i class="bi bi-circle"></i>
+
+                                    <div>
+                                        <strong>E-posta</strong>
+                                        <span>İsteğe bağlı</span>
+                                    </div>
+                                </div>
+
+                                <div class="column-item">
+                                    <i class="bi bi-circle"></i>
+
+                                    <div>
+                                        <strong>Telefon</strong>
+                                        <span>İsteğe bağlı</span>
+                                    </div>
+                                </div>
+
+                                <div class="column-item">
+                                    <i class="bi bi-circle"></i>
+
+                                    <div>
+                                        <strong>Doğum Tarihi</strong>
+                                        <span>İsteğe bağlı</span>
+                                    </div>
+                                </div>
+
+                                <div class="column-item">
+                                    <i class="bi bi-circle"></i>
+
+                                    <div>
+                                        <strong>Cinsiyet</strong>
+                                        <span>İsteğe bağlı</span>
+                                    </div>
+                                </div>
+
+                                <div class="column-item">
+                                    <i class="bi bi-circle"></i>
+
+                                    <div>
+                                        <strong>Departman</strong>
+                                        <span>İsteğe bağlı</span>
+                                    </div>
+                                </div>
+
+                                <div class="column-item">
+                                    <i class="bi bi-circle"></i>
+
+                                    <div>
+                                        <strong>Pozisyon</strong>
+                                        <span>İsteğe bağlı</span>
+                                    </div>
+                                </div>
+
+                                <div class="column-item">
+                                    <i class="bi bi-circle"></i>
+
+                                    <div>
+                                        <strong>İşe Giriş Tarihi</strong>
+                                        <span>İsteğe bağlı</span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="information-card mt-4">
+
+                            <div class="information-card-header">
+
+                                <div class="information-icon orange">
+                                    <i class="bi bi-shield-check"></i>
+                                </div>
+
+                                <div>
+
+                                    <h3 class="information-title">
+                                        Veri Güvenliği
+                                    </h3>
+
+                                    <p class="information-description">
+                                        Yalnızca personel yönetimi için
+                                        gereken alanlar aktarılacaktır.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                            <div class="security-note">
+
+                                <i class="bi bi-info-circle-fill"></i>
+
+                                <p>
+                                    T.C. kimlik numarası gibi kullanılmayan
+                                    sütunlar veritabanına kaydedilmeyecektir.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <%- include("partials/footer") %>
+
+        </main>
+
+    </div>
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    ></script>
+
+    <script src="/js/sidebar.js"></script>
+    <script src="/js/employee-import.js"></script>
+
+</body>
+
+</html>

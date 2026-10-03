@@ -1,0 +1,167 @@
+/* =========================================================
+   RESPONSIVE - TABLET
+========================================================= */
+
+@media (max-width: 1199px) {
+    .mail-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =========================================================
+   RESPONSIVE - MOBİL MENÜ
+========================================================= */
+
+@media (max-width: 991px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+    .sidebar-overlay.show {
+        display: block;
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+
+    .mobile-menu-button {
+        display: inline-flex;
+    }
+
+    .content-wrapper {
+        padding: 22px;
+    }
+
+    .topbar {
+        padding: 13px 22px;
+    }
+
+    .page-header {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .page-actions {
+        justify-content: flex-start;
+    }
+}
+
+/* =========================================================
+   RESPONSIVE - TELEFON
+========================================================= */
+
+@media (max-width: 767px) {
+    .content-wrapper {
+        padding: 18px;
+    }
+
+    .topbar {
+        min-height: 70px;
+        padding: 12px 17px;
+    }
+
+    .topbar-user-info {
+        display: none;
+    }
+
+    .topbar-subtitle {
+        display: none;
+    }
+
+    .page-title {
+        font-size: 24px;
+    }
+
+    .page-description {
+        font-size: 13px;
+    }
+
+    .page-actions {
+        width: 100%;
+    }
+
+    .page-actions .btn-nova {
+        width: 100%;
+    }
+
+    .nova-card-header {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .filter-bar {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+
+    .filter-select {
+        width: 100%;
+    }
+
+    .table-footer {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .form-actions {
+        align-items: stretch;
+        flex-direction: column-reverse;
+    }
+
+    .form-actions .btn-nova {
+        width: 100%;
+    }
+
+    .app-footer {
+        align-items: flex-start;
+        flex-direction: column;
+
+        padding: 16px 18px;
+    }
+}
+
+/* =========================================================
+   RESPONSIVE - KÜÇÜK TELEFON
+========================================================= */
+
+@media (max-width: 480px) {
+    .sidebar {
+        width: 88%;
+        max-width: 290px;
+    }
+
+    .topbar-title {
+        max-width: 170px;
+        font-size: 16px;
+    }
+
+    .topbar-action {
+        width: 39px;
+        height: 39px;
+    }
+
+    .page-title {
+        font-size: 22px;
+    }
+
+    .stat-card-value {
+        font-size: 25px;
+    }
+
+    .nova-card-body {
+        padding: 17px;
+    }
+
+    .form-section {
+        padding: 18px;
+    }
+}

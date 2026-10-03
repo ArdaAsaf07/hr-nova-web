@@ -5,7 +5,16 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "db:migrate": "node scripts/migrate-auth.js",
+    "admin:create": "node scripts/create-admin.js",
+    "admin:list": "node scripts/list-admins.js",
+    "db:backup": "node scripts/backup-database.js",
+    "db:restore": "node scripts/restore-database.js",
+    "test:security": "node scripts/test-security.js",
+    "test:import": "node scripts/test-import.js",
+    "test:api-mail": "node scripts/test-api-mail.js",
+    "security:key": "node scripts/generate-encryption-key.js"
   },
   "keywords": [],
   "author": "",
@@ -14,7 +23,10 @@
   "dependencies": {
     "dotenv": "^17.4.2",
     "ejs": "^4.0.1",
+    "exceljs": "^4.4.0",
     "express": "^5.2.1",
+    "multer": "^2.2.0",
+    "nodemailer": "^9.0.5",
     "pg": "^8.22.0"
   },
   "devDependencies": {

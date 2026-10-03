@@ -1,0 +1,2 @@
+ALTER TABLE employees ADD COLUMN IF NOT EXISTS national_id_ciphertext TEXT, ADD COLUMN IF NOT EXISTS national_id_iv VARCHAR(32), ADD COLUMN IF NOT EXISTS national_id_auth_tag VARCHAR(32), ADD COLUMN IF NOT EXISTS national_id_hash CHAR(64), ADD COLUMN IF NOT EXISTS national_id_last4 CHAR(4);
+CREATE UNIQUE INDEX IF NOT EXISTS employees_national_id_hash_unique ON employees(national_id_hash) WHERE national_id_hash IS NOT NULL;

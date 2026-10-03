@@ -1,306 +1,784 @@
+<%
+    const employeeTotal =
+        typeof totalEmployees !== "undefined" ? totalEmployees :
+        typeof employeeCount !== "undefined" ? employeeCount : 0;
+
+    const departmentTotal =
+        typeof totalDepartments !== "undefined" ? totalDepartments :
+        typeof departmentCount !== "undefined" ? departmentCount : 0;
+
+    const upcomingTrainingTotal =
+        typeof upcomingTrainingCount !== "undefined"
+            ? upcomingTrainingCount
+            : typeof upcomingTrainings !== "undefined" && !Array.isArray(upcomingTrainings)
+                ? upcomingTrainings
+                : 0;
+
+    const expiredTrainingTotal =
+        typeof expiredTrainings !== "undefined" && !Array.isArray(expiredTrainings)
+            ? expiredTrainings
+            : 0;
+
+    const missingTrainingTotal =
+        typeof missingTrainings !== "undefined" ? missingTrainings : 0;
+
+    const certificateTotal =
+        typeof totalCertificates !== "undefined" ? totalCertificates : 0;
+
+    const recentEmployeeList =
+        typeof recentEmployees !== "undefined" && Array.isArray(recentEmployees)
+            ? recentEmployees
+            : typeof employees !== "undefined" && Array.isArray(employees)
+                ? employees.slice(0, 5)
+                : [];
+
+    const upcomingTrainingList =
+        typeof upcomingTrainingRecords !== "undefined" && Array.isArray(upcomingTrainingRecords)
+            ? upcomingTrainingRecords
+            : typeof upcomingTrainings !== "undefined" && Array.isArray(upcomingTrainings)
+                ? upcomingTrainings
+                : [];
+%>
+
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>HR Nova</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>HR Nova | Ana Sayfa</title>
 
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        rel="stylesheet">
+        rel="stylesheet"
+    >
 
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-        rel="stylesheet">
+        rel="stylesheet"
+    >
 
-    <link rel="stylesheet" href="/css/style.css">
+    <link
+        rel="stylesheet"
+        href="/css/style.css"
+    >
 </head>
 
 <body>
 
-<div class="app-wrapper">
+    <div class="hr-nova-layout">
 
-    <aside class="sidebar">
-        <div class="brand-area">
-            <div class="brand-icon">
-                <i class="bi bi-people-fill"></i>
-            </div>
+        <%- include("partials/sidebar", {
+            activePage: "dashboard"
+        }) %>
 
-            <div>
-                <h4>HR Nova</h4>
-                <span>İnsan Kaynakları</span>
-            </div>
-        </div>
+        <main class="main-content">
 
-        <nav class="sidebar-menu">
+            <%- include("partials/topbar", {
+                pageTitle: "Ana Sayfa"
+            }) %>
 
-            <a href="#" class="menu-link active">
-                <i class="bi bi-house-door"></i>
-                <span>Ana Sayfa</span>
-            </a>
+            <div class="content-wrapper">
 
-            <a href="#" class="menu-link">
-                <i class="bi bi-people"></i>
-                <span>Personeller</span>
-            </a>
+                <!-- Sayfa başlığı -->
+                <div class="page-header">
 
-            <a href="/departments" class="menu-link">
+                    <div class="page-header-left">
 
-                <i class="bi bi-diagram-3"></i>
-                <span>Departmanlar</span>
-            </a>
-        
-            
-            <a href="#" class="menu-link">
-                <i class="bi bi-mortarboard"></i>
-                <span>Eğitimler</span>
-            </a>
+                        <h2 class="page-title">
+                            Hoş Geldiniz 👋
+                        </h2>
 
-            <a href="#" class="menu-link">
-                <i class="bi bi-calendar-event"></i>
-                <span>Yaklaşan Eğitimler</span>
-            </a>
+                        <p class="page-description">
+                            Personel, departman ve eğitim süreçlerini tek ekrandan yönetin.
+                        </p>
 
-            <a href="#" class="menu-link">
-                <i class="bi bi-bar-chart"></i>
-                <span>Raporlar</span>
-            </a>
-
-            <a href="#" class="menu-link">
-                <i class="bi bi-file-earmark-excel"></i>
-                <span>Excel Aktarma</span>
-            </a>
-
-            <a href="#" class="menu-link">
-                <i class="bi bi-envelope"></i>
-                <span>E-Posta</span>
-            </a>
-
-            <a href="#" class="menu-link">
-                <i class="bi bi-gear"></i>
-                <span>Ayarlar</span>
-            </a>
-
-        </nav>
-
-        <a href="#" class="logout-link">
-            <i class="bi bi-box-arrow-left"></i>
-            <span>Çıkış Yap</span>
-        </a>
-    </aside>
-
-    <div class="main-area">
-
-        <header class="topbar">
-
-            <button class="mobile-menu-button">
-                <i class="bi bi-list"></i>
-            </button>
-
-            <div class="topbar-title">
-               
-            </div>
-
-            <div class="user-area">
-                <div class="user-avatar">
-                    SY
-                </div>
-
-                <div class="user-info">
-                    <strong>Sistem Yöneticisi</strong>
-                    <span>Yönetici</span>
-                </div>
-
-                <i class="bi bi-chevron-down"></i>
-            </div>
-
-        </header>
-
-        <main class="content-area">
-
-            <div class="page-header">
-                <div>
-                    <h1>Ana Sayfa</h1>
-                    <p>Şirketinizin insan kaynakları süreçlerini buradan yönetin.</p>
-                </div>
-
-                <div class="date-box">
-                    <i class="bi bi-calendar3"></i>
-                    <span id="currentDate"></span>
-
-               <script>
-               const date = new Date();
-
-             document.getElementById("currentDate").textContent =
-                 date.toLocaleDateString("tr-TR", {
-               day: "2-digit",
-              month: "long",
-              year: "numeric"
-         });
-         </script>
-                </div>
-            </div>
-
-            <section class="welcome-card">
-
-                <div class="welcome-content">
-                    <span class="welcome-badge">HR Nova</span>
-
-                    <h2>Hoş geldiniz, Sistem Yöneticisi 👋</h2>
-
-                    <p>
-                        Personel, departman ve eğitim süreçlerini tek bir panelden
-                        kolayca takip edebilirsiniz.
-                    </p>
-
-                    <a href="#" class="btn btn-light">
-                        Personelleri Görüntüle
-                        <i class="bi bi-arrow-right ms-2"></i>
-                    </a>
-                </div>
-
-                <div class="welcome-icon">
-                    <i class="bi bi-person-workspace"></i>
-                </div>
-
-            </section>
-
-            <section class="row g-4 mt-1">
-
-                <div class="col-xl-4 col-md-6">
-                    <div class="stat-card">
-                        <div class="stat-icon icon-blue">
-                            <i class="bi bi-people-fill"></i>
-                        </div>
-
-                        <div class="stat-content">
-                            <span>Toplam Personel</span>
-                            <h3>0</h3>
-                            <small>
-                                <i class="bi bi-arrow-up-right"></i>
-                                Güncel personel sayısı
-                            </small>
-                        </div>
                     </div>
-                </div>
 
-                <div class="col-xl-4 col-md-6">
-                    <div class="stat-card">
-                        <div class="stat-icon icon-orange">
-                            <i class="bi bi-calendar-check"></i>
-                        </div>
+                    <div class="page-actions">
 
-                        <div class="stat-content">
-                            <span>Yaklaşan Eğitimler</span>
-                            <h3>0</h3>
-                            <small>
-                                <i class="bi bi-clock"></i>
-                                Yaklaşan eğitim bulunmuyor
-                            </small>
-                        </div>
+                        <a
+                            href="/employees/new"
+                            class="btn-nova btn-primary-nova"
+                        >
+                            <i class="bi bi-person-plus-fill"></i>
+                            Personel Ekle
+                        </a>
+
                     </div>
+
                 </div>
 
-                <div class="col-xl-4 col-md-6">
-                    <div class="stat-card">
-                        <div class="stat-icon icon-red">
-                            <i class="bi bi-exclamation-triangle"></i>
-                        </div>
+                <!-- İstatistik kartları -->
+                <div class="row g-4 mb-4">
 
-                        <div class="stat-content">
-                            <span>Eğitimi Eksik Personel</span>
-                            <h3>0</h3>
-                            <small>
-                                <i class="bi bi-check-circle"></i>
-                                Tüm kayıtlar güncel
-                            </small>
-                        </div>
-                    </div>
-                </div>
+                    <div class="col-xl-4 col-md-6">
 
-            </section>
+                        <div class="stat-card">
 
-            <section class="row g-4 mt-2">
+                            <div class="stat-card-inner">
 
-                <div class="col-xl-8">
-                    <div class="content-card">
+                                <div>
 
-                        <div class="card-header-custom">
-                            <div>
-                                <h4>Departman Dağılımı</h4>
-                                <p>Departmanlara göre personel sayıları</p>
+                                    <div class="stat-card-label">
+                                        Toplam Personel
+                                    </div>
+
+                                    <h3 class="stat-card-value">
+                                        <%= employeeTotal %>
+                                    </h3>
+
+                                    <div class="stat-card-description">
+                                        Sistemde kayıtlı personeller
+                                    </div>
+
+                                </div>
+
+                                <div class="stat-icon blue">
+                                    <i class="bi bi-people-fill"></i>
+                                </div>
+
                             </div>
 
-                            <a href="#">Tümünü Gör</a>
                         </div>
+
+                    </div>
+
+                    <div class="col-xl-4 col-md-6">
+
+                        <div class="stat-card">
+
+                            <div class="stat-card-inner">
+
+                                <div>
+
+                                    <div class="stat-card-label">
+                                        Departmanlar
+                                    </div>
+
+                                    <h3 class="stat-card-value">
+                                        <%= departmentTotal %>
+                                    </h3>
+
+                                    <div class="stat-card-description">
+                                        Aktif organizasyon birimleri
+                                    </div>
+
+                                </div>
+
+                                <div class="stat-icon purple">
+                                    <i class="bi bi-diagram-3-fill"></i>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-xl-4 col-md-6">
+
+                        <div class="stat-card">
+
+                            <div class="stat-card-inner">
+
+                                <div>
+
+                                    <div class="stat-card-label">
+                                        Yaklaşan Eğitimler
+                                    </div>
+
+                                    <h3 class="stat-card-value">
+                                        <%= upcomingTrainingTotal %>
+                                    </h3>
+
+                                    <div class="stat-card-description">
+                                        Yakında başlayacak eğitimler
+                                    </div>
+
+                                </div>
+
+                                <div class="stat-icon green">
+                                    <i class="bi bi-calendar-check-fill"></i>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-xl-4 col-md-6">
+
+                        <div class="stat-card">
+
+                            <div class="stat-card-inner">
+
+                                <div>
+
+                                    <div class="stat-card-label">
+                                        Süresi Dolan Eğitim
+                                    </div>
+
+                                    <h3 class="stat-card-value">
+                                        <%= expiredTrainingTotal %>
+                                    </h3>
+
+                                    <div class="stat-card-description">
+                                        Yenilenmesi gereken eğitimler
+                                    </div>
+
+                                </div>
+
+                                <div class="stat-icon red">
+                                    <i class="bi bi-exclamation-triangle-fill"></i>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-xl-4 col-md-6">
+
+                        <div class="stat-card">
+
+                            <div class="stat-card-inner">
+
+                                <div>
+
+                                    <div class="stat-card-label">
+                                        Eksik Eğitim
+                                    </div>
+
+                                    <h3 class="stat-card-value">
+                                        <%= missingTrainingTotal %>
+                                    </h3>
+
+                                    <div class="stat-card-description">
+                                        Eğitimi eksik personeller
+                                    </div>
+
+                                </div>
+
+                                <div class="stat-icon orange">
+                                    <i class="bi bi-journal-x"></i>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-xl-4 col-md-6">
+
+                        <div class="stat-card">
+
+                            <div class="stat-card-inner">
+
+                                <div>
+
+                                    <div class="stat-card-label">
+                                        Sertifikalar
+                                    </div>
+
+                                    <h3 class="stat-card-value">
+                                        <%= certificateTotal %>
+                                    </h3>
+
+                                    <div class="stat-card-description">
+                                        Kayıtlı personel sertifikaları
+                                    </div>
+
+                                </div>
+
+                                <div class="stat-icon green">
+                                    <i class="bi bi-award-fill"></i>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row g-4">
+
+                    <!-- Son eklenen personeller -->
+                    <div class="col-xl-8">
+
+                        <div class="nova-card h-100">
+
+                            <div class="nova-card-header">
+
+                                <div>
+
+                                    <h3 class="nova-card-title">
+                                        Son Eklenen Personeller
+                                    </h3>
+
+                                    <div class="nova-card-subtitle">
+                                        Sisteme en son kaydedilen personeller
+                                    </div>
+
+                                </div>
+
+                                <a
+                                    href="/employees"
+                                    class="btn-nova btn-secondary-nova btn-sm-nova"
+                                >
+                                    Tümünü Gör
+                                    <i class="bi bi-arrow-right"></i>
+                                </a>
+
+                            </div>
+
+                            <% if (recentEmployeeList.length > 0) { %>
+
+                                <div class="nova-table-wrapper">
+
+                                    <table class="nova-table">
+
+                                        <thead>
+
+                                            <tr>
+                                                <th>Personel</th>
+                                                <th>Departman</th>
+                                                <th>Pozisyon</th>
+                                                <th>İşe Giriş</th>
+                                            </tr>
+
+                                        </thead>
+
+                                        <tbody>
+
+                                            <% recentEmployeeList.forEach(employee => { %>
+
+                                                <%
+                                                    const firstName =
+                                                        employee.first_name ||
+                                                        employee.firstName ||
+                                                        employee.ad ||
+                                                        "";
+
+                                                    const lastName =
+                                                        employee.last_name ||
+                                                        employee.lastName ||
+                                                        employee.soyad ||
+                                                        "";
+
+                                                    const initials =
+                                                        `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
+
+                                                    const departmentName =
+                                                        employee.department_name ||
+                                                        employee.departmentName ||
+                                                        employee.departman_adi ||
+                                                        "Atanmadı";
+
+                                                    const positionName =
+                                                        employee.position ||
+                                                        employee.pozisyon ||
+                                                        "Belirtilmedi";
+
+                                                    const hireDate =
+                                                        employee.hire_date ||
+                                                        employee.hireDate ||
+                                                        employee.ise_giris_tarihi;
+                                                %>
+
+                                                <tr>
+
+                                                    <td>
+
+                                                        <div class="person-cell">
+
+                                                            <div class="person-avatar">
+                                                                <%= initials || "P" %>
+                                                            </div>
+
+                                                            <div>
+
+                                                                <div class="person-name">
+                                                                    <%= firstName %> <%= lastName %>
+                                                                </div>
+
+                                                                <div class="person-subtitle">
+                                                                    <%= employee.email || "E-posta bulunmuyor" %>
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </td>
+
+                                                    <td>
+                                                        <span class="nova-badge badge-blue">
+                                                            <%= departmentName %>
+                                                        </span>
+                                                    </td>
+
+                                                    <td>
+                                                        <%= positionName %>
+                                                    </td>
+
+                                                    <td>
+                                                        <%= hireDate
+                                                            ? new Date(hireDate).toLocaleDateString("tr-TR")
+                                                            : "-"
+                                                        %>
+                                                    </td>
+
+                                                </tr>
+
+                                            <% }) %>
+
+                                        </tbody>
+
+                                    </table>
+
+                                </div>
+
+                            <% } else { %>
+
+                                <div class="empty-state">
+
+                                    <div class="empty-state-icon">
+                                        <i class="bi bi-people"></i>
+                                    </div>
+
+                                    <h4 class="empty-state-title">
+                                        Henüz personel bulunmuyor
+                                    </h4>
+
+                                    <p class="empty-state-text">
+                                        İlk personel kaydını oluşturarak sistemi kullanmaya başlayabilirsiniz.
+                                    </p>
+
+                                    <a
+                                        href="/employees/new"
+                                        class="btn-nova btn-primary-nova"
+                                    >
+                                        <i class="bi bi-person-plus-fill"></i>
+                                        Personel Ekle
+                                    </a>
+
+                                </div>
+
+                            <% } %>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Hızlı işlemler -->
+                    <div class="col-xl-4">
+
+                        <div class="nova-card mb-4">
+
+                            <div class="nova-card-header">
+
+                                <div>
+
+                                    <h3 class="nova-card-title">
+                                        Hızlı İşlemler
+                                    </h3>
+
+                                    <div class="nova-card-subtitle">
+                                        Sık kullanılan işlemler
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="nova-card-body">
+
+                                <div class="d-grid gap-2">
+
+                                    <a
+                                        href="/employees/new"
+                                        class="btn-nova btn-primary-nova justify-content-start"
+                                    >
+                                        <i class="bi bi-person-plus-fill"></i>
+                                        Yeni Personel Ekle
+                                    </a>
+
+                                    <a
+                                        href="/departments"
+                                        class="btn-nova btn-secondary-nova justify-content-start"
+                                    >
+                                        <i class="bi bi-diagram-3-fill"></i>
+                                        Departmanları Yönet
+                                    </a>
+
+                                    <a
+                                        href="/trainings"
+                                        class="btn-nova btn-secondary-nova justify-content-start"
+                                    >
+                                        <i class="bi bi-mortarboard-fill"></i>
+                                        Eğitim Oluştur
+                                    </a>
+
+                                    <a
+                                        href="/excel"
+                                        class="btn-nova btn-secondary-nova justify-content-start"
+                                    >
+                                        <i class="bi bi-file-earmark-excel-fill"></i>
+                                        Excel'den Personel Aktar
+                                    </a>
+
+                                    <a
+                                        href="/mail"
+                                        class="btn-nova btn-secondary-nova justify-content-start"
+                                    >
+                                        <i class="bi bi-envelope-fill"></i>
+                                        Mail Gönder
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <!-- Sistem durumu -->
+                        <div class="nova-card">
+
+                            <div class="nova-card-header">
+
+                                <div>
+
+                                    <h3 class="nova-card-title">
+                                        Sistem Durumu
+                                    </h3>
+
+                                    <div class="nova-card-subtitle">
+                                        HR Nova servis bilgileri
+                                    </div>
+
+                                </div>
+
+                                <span class="nova-badge badge-green">
+                                    <i class="bi bi-circle-fill"></i>
+                                    Aktif
+                                </span>
+
+                            </div>
+
+                            <div class="nova-card-body">
+
+                                <div class="notification-item">
+
+                                    <div class="notification-icon stat-icon green">
+                                        <i class="bi bi-database-check"></i>
+                                    </div>
+
+                                    <div class="notification-content">
+
+                                        <div class="notification-title">
+                                            Veritabanı bağlantısı
+                                        </div>
+
+                                        <div class="notification-description">
+                                            Neon PostgreSQL bağlantısı aktif.
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="notification-item">
+
+                                    <div class="notification-icon stat-icon blue">
+                                        <i class="bi bi-shield-check"></i>
+                                    </div>
+
+                                    <div class="notification-content">
+
+                                        <div class="notification-title">
+                                            Sistem güvenliği
+                                        </div>
+
+                                        <div class="notification-description">
+                                            Sistem normal şekilde çalışıyor.
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="notification-item">
+
+                                    <div class="notification-icon stat-icon purple">
+                                        <i class="bi bi-cloud-check"></i>
+                                    </div>
+
+                                    <div class="notification-content">
+
+                                        <div class="notification-title">
+                                            Bulut sistemi
+                                        </div>
+
+                                        <div class="notification-description">
+                                            Veriler bulut veritabanında saklanıyor.
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Yaklaşan eğitimler -->
+                <div class="nova-card mt-4">
+
+                    <div class="nova-card-header">
+
+                        <div>
+
+                            <h3 class="nova-card-title">
+                                Yaklaşan Eğitimler
+                            </h3>
+
+                            <div class="nova-card-subtitle">
+                                Planlanan personel eğitimleri
+                            </div>
+
+                        </div>
+
+                        <a
+                            href="/trainings"
+                            class="btn-nova btn-secondary-nova btn-sm-nova"
+                        >
+                            Eğitimlere Git
+                            <i class="bi bi-arrow-right"></i>
+                        </a>
+
+                    </div>
+
+                    <% if (upcomingTrainingList.length > 0) { %>
+
+                        <div class="nova-table-wrapper">
+
+                            <table class="nova-table">
+
+                                <thead>
+
+                                    <tr>
+                                        <th>Eğitim</th>
+                                        <th>Personel</th>
+                                        <th>Başlangıç</th>
+                                        <th>Bitiş</th>
+                                        <th>Durum</th>
+                                    </tr>
+
+                                </thead>
+
+                                <tbody>
+
+                                    <% upcomingTrainingList.forEach(training => { %>
+
+                                        <tr>
+
+                                            <td class="fw-700">
+                                                <%= training.name || training.training_name || training.title || "-" %>
+                                            </td>
+
+                                            <td>
+                                                <%= training.employee_name || training.personnel_name || "-" %>
+                                            </td>
+
+                                            <td>
+                                                <%= training.start_date
+                                                    ? new Date(training.start_date).toLocaleDateString("tr-TR")
+                                                    : "-"
+                                                %>
+                                            </td>
+
+                                            <td>
+                                                <%= training.end_date
+                                                    ? new Date(training.end_date).toLocaleDateString("tr-TR")
+                                                    : "-"
+                                                %>
+                                            </td>
+
+                                            <td>
+                                                <span class="nova-badge badge-orange">
+                                                    Yaklaşıyor
+                                                </span>
+                                            </td>
+
+                                        </tr>
+
+                                    <% }) %>
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    <% } else { %>
 
                         <div class="empty-state">
-                            <i class="bi bi-pie-chart"></i>
-                            <h5>Henüz personel verisi yok</h5>
-                            <p>Personel eklendiğinde departman dağılımı burada görünecek.</p>
-                        </div>
 
-                    </div>
-                </div>
-
-                <div class="col-xl-4">
-                    <div class="content-card">
-
-                        <div class="card-header-custom">
-                            <div>
-                                <h4>Hızlı İşlemler</h4>
-                                <p>Sık kullanılan işlemler</p>
+                            <div class="empty-state-icon">
+                                <i class="bi bi-calendar2-check"></i>
                             </div>
-                        </div>
 
-                        <div class="quick-actions">
+                            <h4 class="empty-state-title">
+                                Yaklaşan eğitim bulunmuyor
+                            </h4>
 
-                            <a href="#">
-                                <div class="quick-icon">
-                                    <i class="bi bi-person-plus"></i>
-                                </div>
+                            <p class="empty-state-text">
+                                Yeni eğitim planladığınızda burada görüntülenecektir.
+                            </p>
 
-                                <div>
-                                    <strong>Personel Ekle</strong>
-                                    <span>Yeni personel kaydı oluştur</span>
-                                </div>
-                            </a>
-
-                            <a href="#">
-                                <div class="quick-icon">
-                                    <i class="bi bi-diagram-3"></i>
-                                </div>
-
-                                <div>
-                                    <strong>Departman Ekle</strong>
-                                    <span>Yeni departman oluştur</span>
-                                </div>
-                            </a>
-
-                            <a href="#">
-                                <div class="quick-icon">
-                                    <i class="bi bi-file-earmark-excel"></i>
-                                </div>
-
-                                <div>
-                                    <strong>Excel Aktar</strong>
-                                    <span>Personelleri toplu aktar</span>
-                                </div>
+                            <a
+                                href="/trainings"
+                                class="btn-nova btn-primary-nova"
+                            >
+                                <i class="bi bi-plus-lg"></i>
+                                Eğitim Oluştur
                             </a>
 
                         </div>
 
-                    </div>
+                    <% } %>
+
                 </div>
 
-            </section>
+            </div>
+
+            <%- include("partials/footer") %>
 
         </main>
 
     </div>
 
-</div>
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    ></script>
+
+    <script src="/js/sidebar.js"></script>
 
 </body>
+
 </html>

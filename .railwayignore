@@ -1,7 +1,6 @@
 node_modules/
 .env
-npm-debug.log
-.DS_Store
+.git/
 backups/
 *.dump
 *.work.*
@@ -9,3 +8,4 @@ backups/
 *.search-work.*
 *.education-work.*
 .tmp-sheet/
+postman/

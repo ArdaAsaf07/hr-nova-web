@@ -1,0 +1,3 @@
+const ExcelJS=require("exceljs");
+const file=process.argv[2];
+(async()=>{const wb=new ExcelJS.Workbook();await wb.xlsx.readFile(file);for(const ws of wb.worksheets){console.log(`Sayfa: ${ws.name}`);for(let r=1;r<=Math.min(10,ws.rowCount);r++){const labels=[];ws.getRow(r).eachCell((cell,col)=>{const raw=cell.text||String(cell.value||"");if(/ad|soyad|depart|doğum|dogum|giriş|giris|başlama|baslama|eğitim|egitim|cinsiyet|kimlik|görev|gorev|sicil/i.test(raw))labels.push(`${col}:${raw.replace(/\s+/g," ").trim()}`);});if(labels.length)console.log(`Satır ${r}: ${labels.join(" | ")}`);}}})().catch(e=>{console.error(e.message);process.exitCode=1;});

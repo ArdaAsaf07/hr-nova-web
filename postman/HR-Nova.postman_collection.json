@@ -1,0 +1,85 @@
+{
+  "info": {
+    "name": "HR Nova API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3000" },
+    { "key": "csrfToken", "value": "" },
+    { "key": "username", "value": "admin" },
+    { "key": "password", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "1 - Giriş Yap",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/x-www-form-urlencoded" }],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            { "key": "username", "value": "{{username}}" },
+            { "key": "password", "value": "{{password}}" }
+          ]
+        },
+        "url": "{{baseUrl}}/login"
+      }
+    },
+    {
+      "name": "2 - Oturum ve CSRF Token",
+      "event": [{
+        "listen": "test",
+        "script": { "exec": ["const json = pm.response.json();", "pm.collectionVariables.set('csrfToken', json.csrfToken);"] }
+      }],
+      "request": { "method": "GET", "url": "{{baseUrl}}/api/session" }
+    },
+    {
+      "name": "Departmanlar",
+      "request": { "method": "GET", "url": "{{baseUrl}}/api/departments" }
+    },
+    {
+      "name": "Departman Ekle",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "X-CSRF-Token", "value": "{{csrfToken}}" }
+        ],
+        "body": { "mode": "raw", "raw": "{\n  \"name\": \"Postman Test Departmanı\",\n  \"description\": \"API üzerinden oluşturuldu\"\n}" },
+        "url": "{{baseUrl}}/api/departments"
+      }
+    },
+    {
+      "name": "Personeller",
+      "request": { "method": "GET", "url": "{{baseUrl}}/api/employees" }
+    },
+    {
+      "name": "Personel Ekle",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "X-CSRF-Token", "value": "{{csrfToken}}" }
+        ],
+        "body": { "mode": "raw", "raw": "{\n  \"first_name\": \"Test\",\n  \"last_name\": \"Personel\",\n  \"email\": \"test@example.com\"\n}" },
+        "url": "{{baseUrl}}/api/employees"
+      }
+    },
+    {
+      "name": "Eğitimler",
+      "request": { "method": "GET", "url": "{{baseUrl}}/api/trainings" }
+    },
+    {
+      "name": "Eğitim Ekle",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "X-CSRF-Token", "value": "{{csrfToken}}" }
+        ],
+        "body": { "mode": "raw", "raw": "{\n  \"employee_id\": 1,\n  \"name\": \"Test Eğitimi\",\n  \"start_date\": \"2026-09-01\",\n  \"status\": \"Planlandı\"\n}" },
+        "url": "{{baseUrl}}/api/trainings"
+      }
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+const fs = require("fs");
+const path = require("path");
+const readline = require("readline");
+const envPath = path.join(__dirname, "..", ".env");
+const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+const question = prompt => new Promise(resolve => rl.question(prompt, answer => resolve(answer.trim())));
+function secretQuestion(prompt) { return new Promise(resolve => { process.stdout.write(prompt); let value=""; process.stdin.setRawMode(true); process.stdin.resume(); const onData=chunk=>{ const text=chunk.toString(); if(text==="\u0003") process.exit(130); if(text==="\r"||text==="\n"){process.stdin.setRawMode(false);process.stdin.removeListener("data",onData);process.stdout.write("\n");return resolve(value.trim());} if(text==="\u007f"||text==="\b"){value=value.slice(0,-1);return;} value+=text; }; process.stdin.on("data",onData); }); }
+function setEnv(content,key,value){const line=`${key}=${value}`,pattern=new RegExp(`^${key}=.*$`,"m");return pattern.test(content)?content.replace(pattern,line):`${content.trimEnd()}\n${line}\n`;}
+(async()=>{const email=(await question("Gmail adresin: ")).toLowerCase();if(!/^[^\s@]+@gmail\.com$/i.test(email))throw new Error("Geçerli bir @gmail.com adresi girin.");const password=(await secretQuestion("16 haneli uygulama şifresi (ekranda görünmez): ")).replace(/\s/g,"");if(password.length!==16)throw new Error("Uygulama şifresi 16 haneli olmalıdır.");let content=fs.readFileSync(envPath,"utf8");for(const [key,value] of Object.entries({SMTP_HOST:"smtp.gmail.com",SMTP_PORT:"587",SMTP_SECURE:"false",SMTP_USER:email,SMTP_PASS:password,MAIL_FROM:`HR Nova <${email}>`}))content=setEnv(content,key,value);fs.writeFileSync(envPath,content,{encoding:"utf8",mode:0o600});console.log("Gmail ayarları güvenli biçimde kaydedildi. Şifre ekrana yazdırılmadı.");})().catch(error=>{console.error(error.message);process.exitCode=1;}).finally(()=>rl.close());

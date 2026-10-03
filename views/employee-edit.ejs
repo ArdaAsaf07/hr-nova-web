@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Personel Düzenle | HR Nova</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body><div class="hr-nova-layout"><%- include('partials/sidebar',{activePage:'employees'}) %><main class="main-content"><%- include('partials/topbar',{pageTitle:'Personel Düzenle'}) %><div class="content-wrapper">
+
+<div class="container py-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-1">Personel Düzenle</h2>
+            <p class="text-muted mb-0">
+                Personel bilgilerini güncelleyin.
+            </p>
+        </div>
+
+        <a href="/employees" class="btn btn-outline-secondary">
+            Personel Listesine Dön
+        </a>
+    </div>
+
+    <div class="card border-0 shadow-sm rounded-4">
+        <div class="card-body p-4 p-md-5">
+
+            <% if (error) { %>
+                <div class="alert alert-danger">
+                    <%= error %>
+                </div>
+            <% } %>
+
+            <form
+                action="/employees/<%= employee.id %>/update"
+                method="POST"
+            >
+
+                <div class="row g-4">
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">
+                            Ad
+                        </label>
+
+                        <input
+                            type="text"
+                            name="first_name"
+                            class="form-control"
+                            value="<%= employee.first_name %>"
+                            required
+                        >
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">
+                            Soyad
+                        </label>
+
+                        <input
+                            type="text"
+                            name="last_name"
+                            class="form-control"
+                            value="<%= employee.last_name %>"
+                            required
+                        >
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">
+                            E-posta
+                        </label>
+
+                        <input
+                            type="email"
+                            name="email"
+                            class="form-control"
+                            value="<%= employee.email || '' %>"
+                        >
+                    </div>
+                    <div class="col-md-6"><label class="form-label fw-semibold">T.C. Kimlik Numarası</label><input type="password" inputmode="numeric" pattern="[0-9]{11}" maxlength="11" name="national_id" class="form-control" autocomplete="off" placeholder="<%= employee.national_id_last4?'Kayıtlı: *******'+employee.national_id_last4:'11 hane' %>"><div class="form-text">Boş bırakırsanız mevcut numara değişmez.</div></div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">
+                            Telefon
+                        </label>
+
+                        <input
+                            type="text"
+                            name="phone"
+                            class="form-control"
+                            value="<%= employee.phone || '' %>"
+                        >
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">
+                            Doğum Tarihi
+                        </label>
+
+                        <input
+                            type="date"
+                            name="birth_date"
+                            class="form-control"
+                            value="<%= employee.birth_date
+                                ? new Date(employee.birth_date)
+                                    .toISOString()
+                                    .split('T')[0]
+                                : '' %>"
+                        >
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">
+                            Cinsiyet
+                        </label>
+
+                        <select
+                            name="gender"
+                            class="form-select"
+                        >
+                            <option value="">Seçiniz</option>
+
+                            <option
+                                value="Kadın"
+                                <%= employee.gender === "Kadın" ? "selected" : "" %>
+                            >
+                                Kadın
+                            </option>
+
+                            <option
+                                value="Erkek"
+                                <%= employee.gender === "Erkek" ? "selected" : "" %>
+                            >
+                                Erkek
+                            </option>
+
+                            <option
+                                value="Belirtmek istemiyor"
+                                <%= employee.gender === "Belirtmek istemiyor" ? "selected" : "" %>
+                            >
+                                Belirtmek istemiyor
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6"><label class="form-label fw-semibold">Eğitim Adı</label><input name="training_name" class="form-control" value="İş Sağlığı ve Güvenliği Eğitimi" placeholder="Örn: Yangın Eğitimi"><div class="form-text">Farklı bir eğitim adı yazarsanız yeni eğitim olarak kaydolur.</div></div>
+                    <div class="col-md-6"><label class="form-label fw-semibold">Eğitim Durumu</label><select name="education_status" class="form-select"><option value="">Seçiniz</option><option value="Aldı" <%= employee.education_status==='Aldı'?'selected':'' %>>Aldı</option><option value="Almadı" <%= employee.education_status==='Almadı'?'selected':'' %>>Almadı</option></select><div class="form-text">Değişiklik Eğitimler bölümüne otomatik yansır.</div></div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">
+                            Departman
+                        </label>
+
+                        <select
+                            name="department_id"
+                            class="form-select"
+                        >
+                            <option value="">Departman seçiniz</option>
+
+                            <% departments.forEach(department => { %>
+                                <option
+                                    value="<%= department.id %>"
+                                    <%= Number(employee.department_id) === Number(department.id)
+                                        ? "selected"
+                                        : "" %>
+                                >
+                                    <%= department.name %>
+                                </option>
+                            <% }) %>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">
+                            Pozisyon
+                        </label>
+
+                        <input
+                            type="text"
+                            name="position"
+                            class="form-control"
+                            value="<%= employee.position || '' %>"
+                        >
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">
+                            İşe Giriş Tarihi
+                        </label>
+
+                        <input
+                            type="date"
+                            name="hire_date"
+                            class="form-control"
+                            value="<%= employee.hire_date
+                                ? new Date(employee.hire_date)
+                                    .toISOString()
+                                    .split('T')[0]
+                                : '' %>"
+                        >
+                    </div>
+
+                </div>
+
+                <div class="d-flex justify-content-end gap-2 mt-5">
+
+                    <a
+                        href="/employees"
+                        class="btn btn-light border"
+                    >
+                        İptal
+                    </a>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary px-4"
+                    >
+                        Değişiklikleri Kaydet
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div></div><%- include('partials/footer') %></main></div><script src="/js/sidebar.js"></script></body>
+</html>

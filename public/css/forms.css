@@ -1,0 +1,177 @@
+/* =========================================================
+   FORMLAR
+========================================================= */
+
+.form-card {
+    overflow: hidden;
+
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+
+    background-color: white;
+
+    box-shadow: var(--shadow-sm);
+}
+
+.form-section {
+    padding: 22px;
+}
+
+.form-section + .form-section {
+    border-top: 1px solid var(--border-color);
+}
+
+.form-section-title {
+    margin: 0 0 5px;
+
+    color: var(--text-dark);
+
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.form-section-description {
+    margin: 0 0 20px;
+
+    color: var(--text-muted);
+
+    font-size: 12px;
+}
+
+.form-label-nova {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: var(--text-normal);
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.form-control-nova,
+.form-select-nova {
+    width: 100%;
+    min-height: 44px;
+
+    padding: 10px 13px;
+
+    border: 1px solid var(--border-dark);
+    border-radius: 10px;
+
+    background-color: white;
+    color: var(--text-dark);
+
+    font-size: 13px;
+
+    outline: none;
+
+    transition:
+        border-color var(--transition),
+        box-shadow var(--transition);
+}
+
+.form-control-nova:focus,
+.form-select-nova:focus {
+    border-color: #60a5fa;
+
+    box-shadow:
+        0 0 0 3px rgba(96, 165, 250, 0.15);
+}
+
+textarea.form-control-nova {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.form-help {
+    margin-top: 6px;
+
+    color: var(--text-muted);
+
+    font-size: 11px;
+}
+
+.form-required {
+    color: var(--danger);
+}
+
+.form-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    padding: 17px 22px;
+
+    border-top: 1px solid var(--border-color);
+
+    background-color: #fcfcfd;
+}
+
+/* =========================================================
+   DOSYA YÜKLEME ALANI
+========================================================= */
+
+.upload-area {
+    min-height: 220px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px;
+
+    border: 2px dashed #bfdbfe;
+    border-radius: var(--radius-lg);
+
+    background-color: #f8fbff;
+
+    text-align: center;
+
+    transition:
+        border-color var(--transition),
+        background-color var(--transition);
+}
+
+.upload-area:hover {
+    border-color: var(--primary);
+    background-color: #eff6ff;
+}
+
+.upload-icon {
+    width: 68px;
+    height: 68px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto 15px;
+
+    border-radius: 50%;
+
+    background-color: var(--primary-light);
+    color: var(--primary);
+
+    font-size: 29px;
+}
+
+.upload-title {
+    margin-bottom: 6px;
+
+    color: var(--text-dark);
+
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.upload-description {
+    margin-bottom: 15px;
+
+    color: var(--text-muted);
+
+    font-size: 12px;
+}
+

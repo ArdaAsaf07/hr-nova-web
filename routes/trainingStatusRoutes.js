@@ -1,0 +1,4 @@
+const express=require('express'),pool=require('../db'),router=express.Router();
+router.post('/training-status/:id/update',async(req,res)=>{const status=String(req.body.status||'');if(!['Aldı','Almadı'].includes(status))return res.redirect('/trainings?error=Geçersiz eğitim durumu.');await pool.query(`UPDATE employee_training_status SET status=$1::varchar,completed_at=CASE WHEN $1::varchar='Aldı' THEN COALESCE(completed_at,CURRENT_DATE) ELSE NULL END,updated_at=NOW() WHERE id=$2`,[status,req.params.id]);await pool.query(`UPDATE employees SET education_status=$1::varchar WHERE id=(SELECT employee_id FROM employee_training_status WHERE id=$2)`,[status,req.params.id]);res.redirect('/trainings?success=Eğitim durumu güncellendi.');});
+router.post('/training-status/:id/delete',async(req,res)=>{await pool.query('DELETE FROM employee_training_status WHERE id=$1',[req.params.id]);res.redirect('/trainings?success=Personel eğitim kaydı silindi.');});
+module.exports=router;

@@ -1,0 +1,102 @@
+/* =========================================================
+   HR NOVA - ORTAK TASARIM DOSYASI
+   Dosya: public/css/style.css
+========================================================= */
+
+/* =========================================================
+   RENKLER VE DEĞİŞKENLER
+========================================================= */
+
+:root {
+    --sidebar-width: 270px;
+
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --primary-light: #dbeafe;
+
+    --success: #059669;
+    --success-light: #d1fae5;
+
+    --warning: #d97706;
+    --warning-light: #fef3c7;
+
+    --danger: #dc2626;
+    --danger-light: #fee2e2;
+
+    --purple: #7c3aed;
+    --purple-light: #ede9fe;
+
+    --sidebar-bg: #111827;
+    --sidebar-bg-dark: #0f172a;
+    --sidebar-text: #d1d5db;
+    --sidebar-muted: #6b7280;
+
+    --body-bg: #f3f4f6;
+    --card-bg: #ffffff;
+
+    --text-dark: #111827;
+    --text-normal: #374151;
+    --text-muted: #6b7280;
+
+    --border-color: #e5e7eb;
+    --border-dark: #d1d5db;
+
+    --shadow-sm: 0 3px 10px rgba(17, 24, 39, 0.04);
+    --shadow-md: 0 8px 24px rgba(17, 24, 39, 0.08);
+    --shadow-lg: 0 16px 40px rgba(17, 24, 39, 0.12);
+
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+
+    --transition: 0.2s ease;
+}
+
+/* =========================================================
+   GENEL AYARLAR
+========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-color: var(--body-bg);
+    color: var(--text-dark);
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+    font-family: inherit;
+}
+
+img {
+    max-width: 100%;
+}
+
+.hr-nova-layout {
+    min-height: 100vh;
+}
+
